@@ -64,7 +64,7 @@ int main(int argc, char **argv) {
  * @return   [description]
  */
 double funcao_ponto_fixo(double x){
-  return x - ((x/2 - tan(2*x))/(1/2 - pow(sec(2*x), 2)*2));
+  return x - ((x - tan(x))/(1 - pow(sec(x), 2)));
 }
 
 /**
@@ -73,7 +73,7 @@ double funcao_ponto_fixo(double x){
  * @return   [description]
  */
 double funcao(double x){
-  return (x/2) - tan(2*x); 
+  return x - tan(x); 
 }
 
 /**
@@ -82,6 +82,6 @@ double funcao(double x){
  * @return   [description]
  */
 double funcao_derivada(double x){
-  return (1/2 - pow(sec(2*x), 2)*2);
+  return (1 - pow(sec(x), 2));
 }
 

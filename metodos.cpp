@@ -32,6 +32,7 @@ s_result bissecao(double xl, double xr, double (*funcao)(double)){
 
     exibe_status(i, xl, xr, x, ea);
 
+
     if( (fl*fx) < 0){
       xr = x;
     }else{
@@ -77,8 +78,13 @@ s_result falsa_posicao(double xl, double xr, double (*funcao)(double)){
 
     exibe_status(i, xl, xr, x, ea);
 
-    xl = x;
-    fl = fx;
+    if (abs(fl) < abs(fr)){
+      xl = x;
+      fl = fx;
+    }else{
+     xr = x;
+     fr = fx;
+    }
 
     i++;
   }
@@ -127,13 +133,13 @@ s_result newton_raphson(double x0, double (*funcao)(double), double (*funcao_der
   while(ea > ERRO && i <= I_MAX){
     x_old   = x;
     f0      = funcao(x_old);
-    x       = x_old - f0/funcao_derivada(x_old);
+    x       = x_old - (f0/funcao_derivada(x_old));
 
     if( x != 0){
       ea = abs((x - x_old)/x)*100;
     }
 
-    exibe_status(i, x_old, f0, 0, ea);
+    exibe_status(i, x_old, x, 0, ea);
 
     i++;
   }  
@@ -150,19 +156,21 @@ s_result secante(double x0, double x1, double (*funcao)(double)){
   double ea = 100;
   double x, x_old;
   double f0, f1;
-
+  
+  x_old = 0;
   int i = 1;
   while(ea > ERRO && i <= I_MAX){
     f0    = funcao(x0);
     f1    = funcao(x1);
 
-    x  = x1 - f1*(x0- x1)/(f0-f1);
+    x  = (x1 - f1*(x0- x1))/(f0-f1);
 
     if( x != 0){
-      ea = abs((x - x0)/x)*100;
+      ea = abs((x - x_old)/x)*100;
     }
+    x_old = x;
 
-    exibe_status(i, x0, f0, 0, ea);
+    exibe_status(i, x0, f0, f1, ea);
 
     x0 = x1;
     x1 = x;
