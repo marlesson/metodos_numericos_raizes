@@ -163,14 +163,14 @@ s_result secante(double x0, double x1, double (*funcao)(double)){
     f0    = funcao(x0);
     f1    = funcao(x1);
 
-    x  = (x1 - f1*(x0- x1))/(f0-f1);
+    x  = x1 - (f1*(x0- x1)/(f0-f1));
 
     if( x != 0){
       ea = abs((x - x_old)/x)*100;
     }
     x_old = x;
 
-    exibe_status(i, x0, f0, f1, ea);
+    exibe_status(i, x0, x1, x, ea);
 
     x0 = x1;
     x1 = x;
