@@ -5,7 +5,7 @@
 #define METODOS_H_INCLUDED
 
   //Tolerância para os métodos, limite superior de execução
-  #define I_MAX 50
+  #define I_MAX 200
 
   // Erro Estimado (%) 
   #define ERRO  0.0001

@@ -20,8 +20,9 @@ s_result bissecao(double xl, double xr, double (*funcao)(double)){
   double fx;
   double x_old;
 
-  int   i   = 1;
-  while(ea > ERRO && i <= I_MAX){
+  int   i   = 0;
+  while(ea > ERRO && i < I_MAX){
+    i++;
     x_old   = x;
     x       = (xl + xr)/2;
     fx      = funcao(x);
@@ -32,15 +33,12 @@ s_result bissecao(double xl, double xr, double (*funcao)(double)){
 
     exibe_status(i, xl, xr, x, ea);
 
-
-    if( (fl*fx) < 0){
+    if( (fl*fx) <= 0){
       xr = x;
     }else{
       xl = x;
       fl = fx;
     }
-
-    i++;
   }
 
   result.interacoes = i;
@@ -66,8 +64,9 @@ s_result falsa_posicao(double xl, double xr, double (*funcao)(double)){
     x = xr;
   }
 
-  int   i   = 1;
-  while(ea > ERRO && i <= I_MAX){
+  int   i   = 0;
+  while(ea > ERRO && i < I_MAX){
+    i++;
     x_old   = x;
     x       = xr + (fr * (xl-xr))/(fr-fl);
     fx      = funcao(x);
@@ -82,11 +81,9 @@ s_result falsa_posicao(double xl, double xr, double (*funcao)(double)){
       xl = x;
       fl = fx;
     }else{
-     xr = x;
-     fr = fx;
+      xr = x;
+      fr = fx;
     }
-
-    i++;
   }
 
   result.interacoes = i;
@@ -102,8 +99,9 @@ s_result ponto_fixo(double x0, double (*funcao)(double)){
   double x  = x0;
   double x_old;
 
-  int i = 1;
-  while(ea > ERRO && i <= I_MAX){
+  int i = 0;
+  while(ea > ERRO && i < I_MAX){
+    i++;
     x_old   = x;
     x       = funcao(x_old);
 
@@ -112,8 +110,6 @@ s_result ponto_fixo(double x0, double (*funcao)(double)){
     }
 
     exibe_status(i, x_old, x, 0, ea);
-
-    i++;
   }  
 
   result.interacoes = i;
@@ -129,8 +125,9 @@ s_result newton_raphson(double x0, double (*funcao)(double), double (*funcao_der
   double x  = x0;
   double x_old, f0;
 
-  int i = 1;
-  while(ea > ERRO && i <= I_MAX){
+  int i = 0;
+  while(ea > ERRO && i < I_MAX){
+    i++;
     x_old   = x;
     f0      = funcao(x_old);
     x       = x_old - (f0/funcao_derivada(x_old));
@@ -141,7 +138,6 @@ s_result newton_raphson(double x0, double (*funcao)(double), double (*funcao_der
 
     exibe_status(i, x_old, x, 0, ea);
 
-    i++;
   }  
 
   result.interacoes = i;
@@ -158,12 +154,13 @@ s_result secante(double x0, double x1, double (*funcao)(double)){
   double f0, f1;
   
   x_old = 0;
-  int i = 1;
-  while(ea > ERRO && i <= I_MAX){
+  int i = 0;
+  while(ea > ERRO && i < I_MAX){
+    i++;
     f0    = funcao(x0);
     f1    = funcao(x1);
-
-    x  = x1 - (f1*(x0- x1)/(f0-f1));
+    cout << "-> "<< f0 << ", " << f1 << endl;
+    x  = x1 - (f1*(x0-x1)/(f0-f1));
 
     if( x != 0){
       ea = abs((x - x_old)/x)*100;
@@ -175,7 +172,6 @@ s_result secante(double x0, double x1, double (*funcao)(double)){
     x0 = x1;
     x1 = x;
 
-    i++;
   }  
 
   result.interacoes = i;

@@ -7,7 +7,7 @@
 #include "metodos.h"
 
 using namespace std;
-
+#define PI 3.14159265358979323846
 /**
  * Função a ser analisada nos métodos numéricos
  * @param  x [Valor do ponto x]
@@ -66,57 +66,68 @@ int main(int argc, char **argv) {
 
 
 double funcao_ponto_fixo(double x){
-  return x - ((x - tan(x))/(1 - pow(sec(x), 2)));
+  return x - funcao(x)/funcao_derivada(x);
 }
 
 double funcao(double x){
-  return x - tan(x); 
+  return (x/2) - tan(2*x); 
 }
 
 double funcao_derivada(double x){
-  return (1 - pow(sec(x), 2));
+  return (1/2 - pow(sec(2*x), 2)*2);
 }
 
+# define INTERVALOS 5
+
 void executa_todas(){
-  cout << "Executa todos os metodos" << endl;
-
-  float intervalos[5][2] = {{4, 4.5}, {7.5, 8}, {10.5, 11}, {14, 14.5}, {17, 17.5}};
+  double intervalos[INTERVALOS][2] = {{-0.1, 0.1}, {1.86, 2.06}, {3.58, 3.78}, {5.22, 5.42}, {6.82, 7.02}};
   double xl, xr;
+  struct s_result result;
 
-  for(int i = 0; i < 5; i++){
+  cout << "Executa todos os metodos" << endl;
+  
+  for(int i = 0; i < INTERVALOS; i++){
     xl = intervalos[i][0];
     xr = intervalos[i][1];
     cout << endl << "Bissecao (" << xl << ", " << xr << ")"<< endl << endl;
-    bissecao(xl,xr, funcao);
+    
+    result = bissecao(xl,xr, funcao);
+    cout << "RESULTADO ("<< result.interacoes << ", " << result.raiz << ")" << endl;
   }
 
-  for(int i = 0; i < 5; i++){
+  for(int i = 0; i < INTERVALOS; i++){
     xl = intervalos[i][0];
     xr = intervalos[i][1];
     cout << endl << "Falsa Posicao (" << xl << ", " << xr << ")"<< endl << endl;
 
-    falsa_posicao(xl,xr, funcao);
+    result = falsa_posicao(xl,xr, funcao);
+    cout << "RESULTADO ("<< result.interacoes << ", " << result.raiz << ")" << endl;
   }
 
-  for(int i = 0; i < 5; i++){
+  for(int i = 0; i < INTERVALOS; i++){
     xl = intervalos[i][0];
     xr = intervalos[i][1];
     cout << endl << "Ponto Fixo  (" << xl << ", " << xr << ")"<< endl << endl;
-    ponto_fixo(xl, funcao_ponto_fixo);
+    
+    result = ponto_fixo(xl, funcao_ponto_fixo);
+    cout << "RESULTADO ("<< result.interacoes << ", " << result.raiz << ")" << endl;
   }
 
-  for(int i = 0; i < 5; i++){
+  for(int i = 0; i < INTERVALOS; i++){
     xl = intervalos[i][0];
     xr = intervalos[i][1];
     cout << endl << "Newton Raphson (" << xl << ", " << xr << ")"<< endl << endl;
-    newton_raphson(xl, funcao, funcao_derivada);
+    
+    result = newton_raphson(xl, funcao, funcao_derivada);
+    cout << "RESULTADO ("<< result.interacoes << ", " << result.raiz << ")" << endl;
   }
 
-
-  for(int i = 0; i < 5; i++){
+  for(int i = 0; i < INTERVALOS; i++){
     xl = intervalos[i][0];
     xr = intervalos[i][1];
     cout << endl << "Secante (" << xl << ", " << xr << ")"<< endl << endl;
-    secante(xl, xr, funcao); 
+    
+    result = secante(xl, xr, funcao); 
+    cout << "RESULTADO ("<< result.interacoes << ", " << result.raiz << ")" << endl;
   }      
 }
