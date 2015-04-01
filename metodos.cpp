@@ -153,7 +153,7 @@ s_result secante(double x0, double x1, double (*funcao)(double)){
   double x, x_old;
   double f0, f1;
   
-  x_old = 0;
+  x_old = x0;
   int i = 0;
   while(ea > ERRO && i < I_MAX){
     i++;

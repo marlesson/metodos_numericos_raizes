@@ -64,36 +64,42 @@ int main(int argc, char **argv) {
   return 0;
 }
 
+# define a 1
 
 double funcao_ponto_fixo(double x){
   return x - funcao(x)/funcao_derivada(x);
+  //return x+(x/a) - tan(a*x);
 }
 
 double funcao(double x){
-  return (x) - tan(x); 
+  return (x/a) - tan(a*x); 
 }
 
 double funcao_derivada(double x){
-  return (1 - pow(sec(x), 2));
+  return (1.0/a - pow(sec(a*x), 2)*a);
 }
 
 # define INTERVALOS 5
 
 void executa_todas(){
   //double intervalos[INTERVALOS][2] = {{-0.1, 0.1}, {1.86, 2.06}, {3.58, 3.78}, {5.22, 5.42}, {6.82, 7.02}};
-  double intervalos[INTERVALOS][2] = {{-0.1, 0.1}, {4.041, 4.241}, {3.58, 3.78}, {5.22, 5.42}, {6.82, 7.02}};
+  double intervalos[INTERVALOS][2] = {
+    {-0.1, 0.1}, 
+    {4.39159265359, 4.59159265359}, 
+    {7.58318530718, 7.78318530718}, 
+    {10.7747779608, 10.9747779608}, 
+    {13.9663706144, 14.13716}}; //14.1663706144
   
 
+  //(i*PI+(26+i)*1.0/20) - 0.1;
   double xl, xr;
   struct s_result result;
 
   cout << "Executa todos os metodos" << endl;
   
   for(int i = 0; i < INTERVALOS; i++){
-    // xl = intervalos[i][0];
-    // xr = intervalos[i][1];
-    xl = (i*PI+(26+i)*1.0/20) - 0.1;
-    xr = (i*PI+(26+i)*1.0/20) + 0.1;
+    xl = intervalos[i][0];
+    xr = intervalos[i][1];
 
     cout << endl << "Bissecao (" << xl << ", " << xr << ")"<< endl << endl;
     
@@ -102,10 +108,8 @@ void executa_todas(){
   }
 
   for(int i = 0; i < INTERVALOS; i++){
-    // xl = intervalos[i][0];
-    // xr = intervalos[i][1];
-    xl = (i*PI+(26+i)*1.0/20) - 0.1;
-    xr = (i*PI+(26+i)*1.0/20) + 0.1;
+    xl = intervalos[i][0];
+    xr = intervalos[i][1];
 
     cout << endl << "Falsa Posicao (" << xl << ", " << xr << ")"<< endl << endl;
 
@@ -114,34 +118,28 @@ void executa_todas(){
   }
 
   for(int i = 0; i < INTERVALOS; i++){
-    // xl = intervalos[i][0];
-    // xr = intervalos[i][1];
-    xl = (i*PI+(26+i)*1.0/20) - 0.1;
-    xr = (i*PI+(26+i)*1.0/20) + 0.1;
+    xl = intervalos[i][0];
+    xr = intervalos[i][1];
 
     cout << endl << "Ponto Fixo  (" << xl << ", " << xr << ")"<< endl << endl;
     
-    result = ponto_fixo(xr, funcao_ponto_fixo);
+    result = ponto_fixo(xl, funcao_ponto_fixo);
     cout << "RESULTADO ("<< result.interacoes << ", " << result.raiz << ")" << endl;
   }
 
   for(int i = 0; i < INTERVALOS; i++){
-    // xl = intervalos[i][0];
-    // xr = intervalos[i][1];
-    xl = (i*PI+(26+i)*1.0/20) - 0.1;
-    xr = (i*PI+(26+i)*1.0/20) + 0.1;
+    xl = intervalos[i][0];
+    xr = intervalos[i][1];
 
     cout << endl << "Newton Raphson (" << xl << ", " << xr << ")"<< endl << endl;
     
-    result = newton_raphson(xr, funcao, funcao_derivada);
+    result = newton_raphson(xl, funcao, funcao_derivada);
     cout << "RESULTADO ("<< result.interacoes << ", " << result.raiz << ")" << endl;
   }
 
   for(int i = 0; i < INTERVALOS; i++){
-    // xl = intervalos[i][0];
-    // xr = intervalos[i][1];
-    xl = (i*PI+(26+i)*1.0/20) - 0.1;
-    xr = (i*PI+(26+i)*1.0/20) + 0.1;
+    xl = intervalos[i][0];
+    xr = intervalos[i][1];
 
     cout << endl << "Secante (" << xl << ", " << xr << ")"<< endl << endl;
     
