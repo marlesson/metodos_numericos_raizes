@@ -159,7 +159,6 @@ s_result secante(double x0, double x1, double (*funcao)(double)){
     i++;
     f0    = funcao(x0);
     f1    = funcao(x1);
-    cout << "-> "<< f0 << ", " << f1 << endl;
     x  = x1 - (f1*(x0-x1)/(f0-f1));
 
     if( x != 0){
