@@ -153,13 +153,13 @@ s_result secante(double x0, double x1, double (*funcao)(double)){
   double x, x_old;
   double f0, f1;
   
-  x_old = x0;
+  x_old = 0;
   int i = 0;
   while(ea > ERRO && i < I_MAX){
     i++;
     f0    = funcao(x0);
     f1    = funcao(x1);
-    x  = x1 - (f1*(x0-x1)/(f0-f1));
+    x     = x1 - (f1*(x0-x1)/(f0-f1));
 
     if( x != 0){
       ea = abs((x - x_old)/x)*100;
