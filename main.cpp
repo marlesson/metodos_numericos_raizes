@@ -64,91 +64,18 @@ int main(int argc, char **argv) {
   return 0;
 }
 
-# define a 2.0
-
 double funcao_ponto_fixo(double x){
-  //return x - funcao(x)/funcao_derivada(x);
-  return sqrt(pow(sec(a*x),2)-1);
+  return x;
 }
 
 double funcao(double x){
-  return (x/a) - tan(a*x); 
+  return x; 
 }
 
 double funcao_derivada(double x){
-  return (1.0/a - pow(sec(a*x), 2)*a);
-}
-
-# define INTERVALOS 1
-
-double *intervalo(int n){
-  double *a_b = (double *) malloc(2 * sizeof(double));
-
-  if(n == 0){
-    a_b[0] = 0-0.1;  
-    a_b[1] = 0+0.1;  
-  }else{
-    double x = PI*n+((26.0+n)/20);
-    a_b[0] = x-0.15;  
-    a_b[1] = x+0.05;      
-  }
-  
-  return a_b;
+  return x;
 }
 
 void executa_todas(){
-  double xl, xr;
-  struct s_result result;
 
-  cout << "Executa todos os metodos" << endl;
-  
-  for(int i = 0; i < INTERVALOS; i++){
-    xl = intervalo(i)[0];
-    xr = intervalo(i)[1];
-
-    cout << endl << "Bissecao (" << xl << ", " << xr << ")"<< endl << endl;
-    
-    result = bissecao(xl,xr, funcao);
-    cout << "RESULTADO ("<< result.interacoes << ", " << result.raiz << ")" << endl;
-  }
-
-  for(int i = 0; i < INTERVALOS; i++){
-    xl = intervalo(i)[0];
-    xr = intervalo(i)[1];
-
-    cout << endl << "Falsa Posicao (" << xl << ", " << xr << ")"<< endl << endl;
-
-    result = falsa_posicao(xl,xr, funcao);
-    cout << "RESULTADO ("<< result.interacoes << ", " << result.raiz << ")" << endl;
-  }
-
-  for(int i = 0; i < INTERVALOS; i++){
-    xl = intervalo(i)[0];
-    xr = intervalo(i)[1];
-
-    cout << endl << "Ponto Fixo  (" << xl << ", " << xr << ")"<< endl << endl;
-    
-    result = ponto_fixo(xr, funcao_ponto_fixo);
-    cout << "RESULTADO ("<< result.interacoes << ", " << result.raiz << ")" << endl;
-  }
-
-  for(int i = 0; i < INTERVALOS; i++){
-    xl = intervalo(i)[0];
-    xr = intervalo(i)[1];
-
-    cout << endl << "Newton Raphson (" << xl << ", " << xr << ")"<< endl << endl;
-    
-    result = newton_raphson(xl, funcao, funcao_derivada);
-    cout << "RESULTADO ("<< result.interacoes << ", " << result.raiz << ")" << endl;
-  }
-
-  for(int i = 0; i < INTERVALOS; i++){
-    xl = intervalo(i)[0];
-    xr = intervalo(i)[1];
-
-    cout << endl << "Secante (" << xl << ", " << xr << ")"<< endl << endl;
-    
-    result = secante(xl, xr, funcao); 
-    cout << "RESULTADO ("<< result.interacoes << ", " << result.raiz << ")" << endl;
-  }      
 }
